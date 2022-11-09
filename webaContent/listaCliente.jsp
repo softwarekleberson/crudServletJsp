@@ -20,11 +20,10 @@
 	
 		<ul>
 			<c:forEach items="${cliente}" var="clientes">
-				<li>${clientes.nome} ${clientes.email} ${clientes.telefone}</li>
-				
+				<li>${clientes.nome} ${clientes.email} ${clientes.telefone}</li>				
 				<a href="/webfatec/removeCliente?id=${clientes.id }">remover</a>
-				<a href="/webfatec/mostraCliente?id=${clientes.id}">edita</a>	
-					
+				<a href="/webfatec/mostraCliente?id=${clientes.id}">editar</a>
+				<br><br>	
 			</c:forEach>
 		</ul>
 		

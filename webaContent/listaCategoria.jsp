@@ -19,10 +19,13 @@
 	
 	<ul>
 		<c:forEach items="${categoria}" var="categorias">
-			<li>${categorias.nome} - ${categorias.descricao} </li>
+			<li> ${categorias.nome} <br>
+				 ${categorias.descricao}
+			</li>
+			
 			<a href="/webfatec/removeCategoria?id=${categorias.id}">remover</a>	
-			<a href="/webfatec/mostraCategoria?id=${categorias.id}">altera</a>	
-		
+			<a href="/webfatec/mostraCategoria?id=${categorias.id}">alterar</a>	
+			<br><br>
 								
 		</c:forEach>
 	</ul>

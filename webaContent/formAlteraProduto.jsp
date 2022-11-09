@@ -12,15 +12,15 @@
 
 	<form action="${linkServletProduto}" method="post">
 		
-		<label>Nome Produto</label>
+		<label>Nome do produto : </label>
 		<input type="text" name="nome" value="${produto.nome}">
 		
-		<label>Descricao Produto</label>
+		<label>Descricao do produto : </label>
 		<input type="text" name="descricao" value="${produto.descricao}">
 		
-		<label>Preco Produto</label>
+		<label>Preco do produto : </label>
 		<input type="text" name="preco" value="${produto.preco}">
-		<input type="text" name="id" value="${produto.id }">
+		<input type="hidden" name="id" value="${produto.id }">
 		
 		<input type="submit">
 		

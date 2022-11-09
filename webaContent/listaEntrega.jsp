@@ -19,9 +19,10 @@
 	<ul>
 		<c:forEach items="${entrega}" var="entregas">
 			<li> <fmt:formatDate value="${entregas.data }" pattern="dd/MM/yyyy"/></li>
+			<br><br>
 			<a href="/webfatec/removeEntrega?id=${entregas.id }">remover</a>
-			<a href="/webfatec/mostraEntrega?id=${entregas.id}">edita</a>	
-				
+			<a href="/webfatec/mostraEntrega?id=${entregas.id}">editar</a>
+			<br><br>	
 		</c:forEach>
 	</ul>
 

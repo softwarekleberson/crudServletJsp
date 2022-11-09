@@ -7,6 +7,10 @@ public class Categoria extends EntidadeDominio{
 	private String nome;
 	private String descricao;
 	
+	public Categoria() {
+		
+	}
+	
 	public Categoria(String nome, String descricao) {
 		
 		this.nome = nome;

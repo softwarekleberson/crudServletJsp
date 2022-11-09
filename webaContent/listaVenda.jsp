@@ -19,10 +19,15 @@
 
 	<ul>
 		<c:forEach items="${venda}" var="vendas">
-			<li>Data : <fmt:formatDate value="${vendas.data }" pattern="dd/MM/yyyy"/></li>
+			<li>Data : <fmt:formatDate value="${vendas.data }" pattern="dd/MM/yyyy"/>
+				Quantidade : ${vendas.qtd}
+				Desconto : ${vendas.desconto}
+				Valor Total : ${vendas.valorTotal}
+			</li>
+			
 			<a href="/webfatec/removeVenda?id=${vendas.id }">remover</a>
-			<a href="/webfatec/mostraVenda?id=${vendas.id }">altera</a>
-		
+			<a href="/webfatec/mostraVenda?id=${vendas.id }">alterar</a>
+			<br><br>
 		</c:forEach>
 	
 	</ul>

@@ -7,8 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.fatec.web.BancoMemoria.BancoCliente;
-
+import br.com.fatec.web.Banco.ClienteDao;
 
 @WebServlet("/removeCliente")
 public class RemoveClienteServlet extends HttpServlet {
@@ -19,11 +18,17 @@ public class RemoveClienteServlet extends HttpServlet {
 		String paramId = request.getParameter("id");		
 		Integer id = Integer.valueOf(paramId);
 		
-		BancoCliente bancoCliente = new BancoCliente();
-		bancoCliente.remover(id);
+		Cliente cliente = new Cliente();
+		cliente.setId(id);
+		ClienteDao dao = new ClienteDao(cliente);
+		
+		try {
+			dao.delete();
+		} catch (Exception e) {
+			System.out.println(e);
+		}
 		
 		response.sendRedirect("listaCliente");
-		
 	}
 
 }

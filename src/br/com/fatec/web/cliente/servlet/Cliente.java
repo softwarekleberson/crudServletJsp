@@ -8,6 +8,10 @@ public class Cliente extends EntidadeDominio{
 	private String email;
 	private String telefone;
 	
+	public Cliente() {
+
+	}
+	
 	public Cliente(String nome, String email, String telefone) {
 		
 		this.nome = nome;

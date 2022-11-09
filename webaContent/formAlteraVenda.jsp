@@ -13,18 +13,18 @@
 
 	<form action="${linkServletVenda}" method="post">
 	
-		<label>Quantidade Venda</label>
+		<label>Quantidade vendida : </label>
 		<input type="number" name="qtd" value="${venda.qtd }">
 		
-		<label>Desconto Venda</label>
+		<label>Desconto da venda : </label>
 		<input type="text" name="desconto" value="${venda.desconto }">
 		
-		<label>Valor Total</label>
+		<label>Valor total : </label>
 		<input type="text" name="valor" value="${venda.valorTotal }">
 		
-		<label>Data Venda</label>
+		<label>Data da venda : </label>
 		<input type="text" name="data" value="<fmt:formatDate value="${venda.data }" pattern="dd/MM/yyyy"/>"/>
-		<input type="text" name="id" value="${venda.id }">
+		<input type="hidden" name="id" value="${venda.id }">
 		 
 		<input type="submit">
 		

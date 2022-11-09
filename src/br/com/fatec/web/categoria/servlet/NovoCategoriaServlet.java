@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.fatec.web.BancoMemoria.BancoCategoria;
+import br.com.fatec.web.Banco.CategoriaDao;
 
 
 @WebServlet("/novoCategoria")
@@ -22,18 +22,18 @@ public class NovoCategoriaServlet extends HttpServlet {
 		String descricaoCategoria = request.getParameter("descricao");
 		
 		Categoria categoria = new Categoria(nomeCategoria, descricaoCategoria);
+		CategoriaDao categoriaDao = new CategoriaDao();
 		
-		BancoCategoria bancoCategoria = new BancoCategoria();
-		bancoCategoria.adiciona(categoria);
+		try {
+			categoriaDao.newProduto(categoria);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		request.setAttribute("categoria", categoria.getNome());
+		request.setAttribute("categoria", categoria);
 		response.sendRedirect("listaCategoria");
 		
-		
-		//RequestDispatcher rd = request.getRequestDispatcher("/listaCategoria");
-		//request.setAttribute("categoria", categoria.getNome());
-		//rd.forward(request, response);
-
 	}
 
 }

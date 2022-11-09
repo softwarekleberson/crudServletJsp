@@ -10,23 +10,23 @@
 <body>
 
 	<form action="${linkServletVenda}" method="post">
-	
-		<label>Quantidade Venda</label>
+		<label>Quantidade vendida : </label>
 		<input type="number" name="qtd">
+		<br><br>
 		
-		<label>Desconto Venda</label>
+		<label>Desconto da venda : </label>
 		<input type="text" name="desconto">
+		<br><br>
 		
-		<label>Valor Total</label>
+		<label>Valor total : </label>
 		<input type="text" name="valor">
+		<br><br>
 		
-		<label>Data Venda</label>
+		<label>Data da venda : </label>
 		<input type="text" name="data">
-		
+		<br><br>
 		
 		<input type="submit">
-		
-		
 	</form>
 
 </body>

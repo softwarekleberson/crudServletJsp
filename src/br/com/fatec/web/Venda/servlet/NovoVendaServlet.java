@@ -6,14 +6,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.fatec.web.BancoMemoria.BancoVenda;
+import br.com.fatec.web.Banco.VendaDao;
 
 
 @WebServlet("/novoVenda")
@@ -27,6 +26,7 @@ public class NovoVendaServlet extends HttpServlet {
 		String descontoVenda = req.getParameter("desconto");
 		String valorVenda = req.getParameter("valor");
 		
+		Integer quantidade = Integer.valueOf(quantidadeVenda);
 		BigDecimal desconto = new BigDecimal(descontoVenda);
 		BigDecimal valor = new BigDecimal(valorVenda);
 		
@@ -41,16 +41,21 @@ public class NovoVendaServlet extends HttpServlet {
 			throw new ServletException(e);
 		}
 		
-		Venda venda = new Venda(dataVenda, null, null, null, desconto, valor);
-		BancoVenda bancoVenda = new BancoVenda();
-		bancoVenda.adiciona(venda);
+		Venda ven = new Venda();
+		ven.setData(dataVenda);
+		ven.setQtd(quantidade);
+		ven.setDesconto(desconto);
+		ven.setValorTotal(valor);
 		
-		req.setAttribute("venda", venda.getValorTotal());
+		VendaDao dao = new VendaDao();
+		try {
+			dao.newVenda(ven);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		req.setAttribute("venda", ven.getValorTotal());
 		resp.sendRedirect("listaVenda");
-		
-		//RequestDispatcher rd = req.getRequestDispatcher("/listaVenda");
-		//req.setAttribute("venda", venda.getValorTotal());
-		//rd.forward(req, resp);
 		
 	}
 

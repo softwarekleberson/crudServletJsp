@@ -7,7 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.fatec.web.BancoMemoria.BancoEntrega;
+import br.com.fatec.web.Banco.EntregaDao;
 
 
 @WebServlet("/removeEntrega")
@@ -20,8 +20,15 @@ public class RemoveEntregaServlet extends HttpServlet {
 		String paramId = request.getParameter("id");
 		Integer id = Integer.valueOf(paramId);
 		
-		BancoEntrega bancoEntrega = new BancoEntrega();
-		bancoEntrega.remover(id);
+		Entrega entrega = new Entrega();
+		entrega.setId(id);
+		
+		EntregaDao dao = new EntregaDao(entrega);
+		try {
+			dao.delete();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		response.sendRedirect("listaEntrega");
 	

@@ -12,9 +12,10 @@
 
 	<form action="${linkServletEntrega}" method="post">
 		
-		<label>Data Entrega</label>
+		<label>Data da entrega : </label>
 		<input type="text" name="data">
 		
+		<br><br>
 		<input type="submit">
 	
 	</form>

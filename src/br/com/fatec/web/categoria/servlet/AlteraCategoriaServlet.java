@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.fatec.web.Banco.CategoriaDao;
 import br.com.fatec.web.BancoMemoria.BancoCategoria;
 
 
@@ -20,13 +21,26 @@ public class AlteraCategoriaServlet extends HttpServlet {
 		String nomeCategoria = request.getParameter("nome");
 		String descricaoCategoria = request.getParameter("descricao");
 		String paramId = request.getParameter("id");
-		Integer id = Integer.valueOf(paramId);
+				
+		Categoria categoria = new Categoria(nomeCategoria, descricaoCategoria);
 		
-		BancoCategoria bancoCategoria = new BancoCategoria();
-		Categoria categoria = bancoCategoria.buscaPorId(id);
-		
-		categoria.setNome(nomeCategoria);
-		categoria.setDescricao(descricaoCategoria);
+		CategoriaDao dao = new CategoriaDao();
+		try {
+			
+			if(paramId == "" || paramId == null) {
+				dao.newCategoria(categoria);
+			}
+			
+			else {		
+				categoria.setId(Integer.parseInt(paramId));
+				dao.editar(categoria);
+			}
+			
+		} catch (Exception e) {
+			
+			
+			e.printStackTrace();
+		}
 	
 		response.sendRedirect("listaCategoria");
 	}

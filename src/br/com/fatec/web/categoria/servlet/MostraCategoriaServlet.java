@@ -9,8 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.fatec.web.BancoMemoria.BancoCategoria;
-
+import br.com.fatec.web.Banco.CategoriaDao;
 
 @WebServlet("/mostraCategoria")
 public class MostraCategoriaServlet extends HttpServlet {
@@ -18,15 +17,21 @@ public class MostraCategoriaServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String paramId = request.getParameter("id");
-		Integer id = Integer.valueOf(paramId);
+		int codigo = Integer.parseInt(request.getParameter("id"));
+		Categoria cat = new Categoria();
 		
-		BancoCategoria bancoCategoria = new BancoCategoria();
-		Categoria categoria = bancoCategoria.buscaPorId(id);
-				
-		request.setAttribute("categoria", categoria);
-		RequestDispatcher rd = request.getRequestDispatcher("/formAlteraCategoria.jsp");
-		rd.forward(request, response);
+		CategoriaDao dao = new CategoriaDao(cat);
+		try {
+			cat = dao.findByIdCategoria(codigo);
+			
+			request.setAttribute("categoria", cat);
+			RequestDispatcher rd = request.getRequestDispatcher("/formAlteraCategoria.jsp");
+			rd.forward(request, response);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		
 	}
 

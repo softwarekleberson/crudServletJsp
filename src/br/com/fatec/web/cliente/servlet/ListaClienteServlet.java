@@ -1,8 +1,6 @@
 package br.com.fatec.web.cliente.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.fatec.web.BancoMemoria.BancoCliente;
+import br.com.fatec.web.Banco.ClienteDao;
 
 
 @WebServlet("/listaCliente")
@@ -20,11 +18,14 @@ public class ListaClienteServlet extends HttpServlet {
 
 	
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		BancoCliente bancoCliente = new BancoCliente();
-		List<Cliente> lista = bancoCliente.getClientes();
-		request.setAttribute("cliente", lista);
-		
+				
+		ClienteDao dao = new ClienteDao();
+		try {
+			request.setAttribute("cliente", dao.getClientes());
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+				
 		RequestDispatcher rd = request.getRequestDispatcher("/listaCliente.jsp");
 		rd.forward(request, response);
 		

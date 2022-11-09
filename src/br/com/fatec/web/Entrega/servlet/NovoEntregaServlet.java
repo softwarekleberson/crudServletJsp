@@ -5,14 +5,13 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.fatec.web.BancoMemoria.BancoEntrega;
+import br.com.fatec.web.Banco.EntregaDao;
 
 @WebServlet("/novoEntrega")
 public class NovoEntregaServlet extends HttpServlet {
@@ -22,6 +21,8 @@ public class NovoEntregaServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			
 		String data = request.getParameter("data");
+		Entrega entrega = new Entrega();
+		
 		
 		Date dataEntrega = null;
 		try {
@@ -32,19 +33,20 @@ public class NovoEntregaServlet extends HttpServlet {
 			throw new ServletException(e);
 		}
 		
-		BancoEntrega bancoEntrega = new BancoEntrega();
+		EntregaDao dao = new EntregaDao();
+		entrega.setData(dataEntrega);
 		
-		Entrega entrega = new Entrega(null, dataEntrega);
-		bancoEntrega.adiciona(entrega);
+		try {
+			
+			dao.newEntrega(entrega);
+		} catch (Exception e) {
+			
+			e.printStackTrace();
+		}
 		
 		request.setAttribute("entrega", entrega.getData());
 		response.sendRedirect("listaEntrega");
-		
-		//RequestDispatcher rd = request.getRequestDispatcher("/listaEntrega");
-		//request.setAttribute("entrega", entrega.getData());
-		//rd.forward(request, response);
-		
-				
+					
 	}
 
 }

@@ -17,7 +17,7 @@
 	</c:if>
 	
 	<c:if test="${empty produto }">
-		Nenhum produto cadastrado
+		Nenhum Produto Cadastrado
 	</c:if>
 	
 	

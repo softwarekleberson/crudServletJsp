@@ -17,7 +17,7 @@
 	</c:if>
 
 	<c:if test="${empty venda }">
-		Nenhuma venda cadastrada
+		Nenhuma Venda Cadastrada
 	</c:if>
 
 	

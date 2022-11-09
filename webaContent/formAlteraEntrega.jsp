@@ -13,12 +13,11 @@
 <body>
 
 	<form action="${linkServletEntrega}" method="post">
-		
-		<label>Data Entrega</label>
+		<label>Data da entrega : </label>
 		<input type="text" name="data" value="<fmt:formatDate value="${entrega.data }" pattern="dd/MM/yyyy"/>"/>
-		<input type="text" name="id" value="${entrega.id }">
+		
+		<input type="hidden" name="id" value="${entrega.id }">
 		<input type="submit">
-	
 	</form>
 
 </body>

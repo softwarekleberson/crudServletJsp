@@ -11,17 +11,16 @@
 
 	<form action="${linkServletCliente}" method="post">
 		
-		<label>Nome Cliente</label>
+		<label>Nome do cliente : </label>
 		<input type="text" name="nome" value="${cliente.nome }">
 		
-		<label>Email Cliente</label>
+		<label>Email do cliente : </label>
 		<input type="email" name="email" value="${cliente.email }">
 		
-		<label>Telefone Cliente</label>
+		<label>Telefone do cliente : </label>
 		<input type="tel" name="telefone" value="${cliente.telefone }">
 		
 		<input type="hidden" name="id" value="${cliente.id }">
-			
 		<input type="submit">
 				
 	</form>

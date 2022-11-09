@@ -10,14 +10,13 @@
 <body>
 	<form action="${linkServletCategoria}" method="post">
 	
-		<label>Nome Categoria</label>
+		<label>Nome da categoria : </label>
 		<input type="text" name="nome" value="${categoria.nome }">
 		
-		<label>Descricao Categoria</label>
+		<label>Descricao da categoria : </label>
 		<input type="text" name="descricao" value="${categoria.descricao }">
 		
 		<input type="hidden" name="id" value="${categoria.id }">
-		
 		<input type="submit">
 	
 	</form>

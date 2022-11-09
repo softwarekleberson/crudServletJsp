@@ -18,7 +18,7 @@
 	</c:if>
 	
 	<c:if test="${empty entrega}">
-		Nenhuma entrega cadastrado
+		Nenhuma Entrega Cadastrado
 	</c:if>
 	
 </body>

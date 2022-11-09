@@ -12,6 +12,10 @@ public class Produto extends EntidadeDominio{
 	private Categoria categoria;
 	private BigDecimal preco;
 	
+	public Produto() {
+		
+	}
+	
 	public Produto(String nome, String descricao, Categoria categoria, BigDecimal preco) {
 		
 		this.nome = nome;
