@@ -105,4 +105,40 @@ public class ClienteDao extends BaseDao{
 		return lst;
 	}
 	
+	
+	public Cliente findByIdCliente(int id) throws Exception {
+		super.abrir();
+		
+		String query = "select id, nome, email, telefone from cliente where id=?";
+		
+		PreparedStatement preparedStmt = getConn().prepareStatement(query);
+		preparedStmt.setInt(1, id);  
+		ResultSet rs =   preparedStmt.executeQuery();
+		
+		Cliente cli = new Cliente();
+		while(rs.next()) {
+			cli.setId(Integer.parseInt(rs.getString(1)));
+			cli.setNome(rs.getString(2));
+			cli.setEmail(rs.getString(3));
+			cli.setTelefone(rs.getString(4));
+		}
+		
+		rs.close();
+		return cli;
+	}
+	
+	public void edit(Cliente cli)  throws Exception{
+		abrir();
+			
+		String query = " update cliente set nome=?,email=?,telefone=? where id=?";
+	      PreparedStatement preparedStmt = getConn().prepareStatement(query);
+	      preparedStmt.setString (1, cli.getNome());  
+	      preparedStmt.setString (2, cli.getEmail());  
+	      preparedStmt.setString(3, cli.getTelefone()); 
+	      preparedStmt.setInt(4, cli.getId()); 
+	      preparedStmt.execute();
+	      fechar();
+		
+	}
+	
 }

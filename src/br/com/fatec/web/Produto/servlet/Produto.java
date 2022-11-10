@@ -16,6 +16,13 @@ public class Produto extends EntidadeDominio{
 		
 	}
 	
+	public Produto(String nome, String descricao, BigDecimal preco) {
+		
+		this.nome = nome;
+		this.descricao = descricao;
+		this.preco = preco;
+	}
+	
 	public Produto(String nome, String descricao, Categoria categoria, BigDecimal preco) {
 		
 		this.nome = nome;

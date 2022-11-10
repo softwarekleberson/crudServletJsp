@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.fatec.web.Banco.ClienteDao;
 import br.com.fatec.web.BancoMemoria.BancoCliente;
 
 
@@ -24,14 +25,25 @@ public class AlteraClienteServlet extends HttpServlet {
 		String paramId = request.getParameter("id");
 		Integer id = Integer.valueOf(paramId);
 		
-		BancoCliente bancoCliente = new BancoCliente();
-		Cliente cliente = bancoCliente.buscaPorId(id);
+		Cliente cli = new Cliente(nomeCliente, emailCliente, telefoneCliente);
+		ClienteDao dao = new ClienteDao();
 		
-		cliente.setNome(nomeCliente);
-		cliente.setEmail(emailCliente);
-		cliente.setTelefone(telefoneCliente);
-		
+		try {
+			
+			if(paramId == null || paramId =="") {
+				dao.newCliente(cli);
+			}
+			
+			else {
+				
+				cli.setId(id);
+				dao.edit(cli);
+			}
+			
+		} catch (Exception e) {			
+			e.printStackTrace();
+		}
+	
 		response.sendRedirect("listaCliente");
 	}
-
 }

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.fatec.web.Banco.ProdutoDao;
 import br.com.fatec.web.BancoMemoria.BancoProduto;
 
 
@@ -21,12 +22,20 @@ public class MostraProdutoServlet extends HttpServlet {
 		String paramId = request.getParameter("id");
 		Integer id = Integer.valueOf(paramId);
 		
-		BancoProduto bancoProduto = new BancoProduto();
-		Produto produto = bancoProduto.buscaPorId(id);
-				
-		request.setAttribute("produto", produto);
-		RequestDispatcher rd = request.getRequestDispatcher("/formAlteraProduto.jsp");
-		rd.forward(request, response);
+		Produto produto = new Produto();
+		ProdutoDao dao = new ProdutoDao(produto);
+		
+		try {
+			
+			produto = dao.findByIdProduto(id);
+			request.setAttribute("produto", produto);
+			RequestDispatcher rd = request.getRequestDispatcher("/formAlteraProduto.jsp");
+			rd.forward(request, response);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 
 }

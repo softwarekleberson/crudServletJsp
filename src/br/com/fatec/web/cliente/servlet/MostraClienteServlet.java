@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.fatec.web.Banco.CategoriaDao;
+import br.com.fatec.web.Banco.ClienteDao;
 import br.com.fatec.web.BancoMemoria.BancoCliente;
 
 
@@ -21,13 +23,21 @@ public class MostraClienteServlet extends HttpServlet {
 		String paramId = request.getParameter("id");
 		Integer id = Integer.valueOf(paramId);
 		
-		BancoCliente bancoCliente = new BancoCliente();
-		Cliente cliente = bancoCliente.buscaPorId(id);
-				
-		request.setAttribute("cliente", cliente);
-		RequestDispatcher rd = request.getRequestDispatcher("/formAlteraCliente.jsp");
-		rd.forward(request, response);
-	
+		Cliente cliente = new Cliente();
+		ClienteDao dao = new ClienteDao(cliente);
+		
+		try {
+			
+			cliente = dao.findByIdCliente(id);
+			
+			request.setAttribute("cliente", cliente);
+			RequestDispatcher rd = request.getRequestDispatcher("/formAlteraCliente.jsp");
+			rd.forward(request, response);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+			
 	}
 
 }

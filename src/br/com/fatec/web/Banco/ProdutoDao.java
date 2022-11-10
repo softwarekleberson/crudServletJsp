@@ -104,4 +104,38 @@ public class ProdutoDao extends BaseDao{
 		return lst;
 	}
 	
+	public Produto findByIdProduto(int id) throws Exception{
+		super.abrir();
+		
+		String sql = "SELECT id,nome,descricao,preco FROM Produto where id=?";
+		  
+		PreparedStatement preparedStmt = getConn().prepareStatement(sql);
+		preparedStmt.setInt(1, id);  
+		  
+		ResultSet rs =   preparedStmt.executeQuery();
+		Produto p= new Produto();
+		while (rs.next()) { 
+			p.setId(Integer.parseInt(rs.getString(1)));
+			p.setNome(rs.getString(2));		
+			p.setDescricao(rs.getString(3));	
+			p.setPreco(rs.getBigDecimal(4)); 
+		}
+		
+		rs.close();
+		return p;
+	}
+	
+	public void edit(Produto p)  throws Exception{
+		abrir();
+			
+		  String query = " update Produto set nome=?,descricao=?,preco=? where id=?";
+	      PreparedStatement preparedStmt = getConn().prepareStatement(query);
+	      preparedStmt.setString (1, p.getNome());  
+	      preparedStmt.setString (2, p.getDescricao());  
+	      preparedStmt.setBigDecimal(3, p.getPreco()); 
+	      preparedStmt.setInt(4, p.getId()); 
+	      preparedStmt.execute();
+	      fechar();
+		
+	}
 }
