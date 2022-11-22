@@ -25,9 +25,8 @@ public class NovoCategoriaServlet extends HttpServlet {
 		CategoriaDao categoriaDao = new CategoriaDao();
 		
 		try {
-			categoriaDao.newProduto(categoria);
+			categoriaDao.newCategoria(categoria);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		

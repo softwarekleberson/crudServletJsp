@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -17,6 +18,7 @@ public class VendaDao extends BaseDao{
 	}
 	
 	Venda ven = new Venda();
+	
 	public VendaDao(Venda ven) {
 		this.ven = ven;
 	}
@@ -70,9 +72,11 @@ public class VendaDao extends BaseDao{
 		
 		PreparedStatement preparedStatement = getConn().prepareStatement(query);
 		
-		java.sql.Date sqldate = new java.sql.Date(venda.getData());
-		preparedStatement.setDate(1, sqldate);
+		Date data = new Date();
+		data = venda.getData();
+		java.sql.Date sqldate = new java.sql.Date(data.getTime());
 		
+		preparedStatement.setDate(1, sqldate);
 		preparedStatement.setInt(2, venda.getQtd());
 		preparedStatement.setBigDecimal(3, venda.getDesconto());
 		preparedStatement.setBigDecimal(4, venda.getValorTotal());
@@ -113,6 +117,53 @@ public class VendaDao extends BaseDao{
 		rs.close();
 		fechar();
 		return lst;
+	}
+	
+	public Venda findByIdVenda(int id) throws Exception {
+		super.abrir();
+		
+		String query = "select id, data, quantidade, desconto, valorTotal from venda where id=?";
+		
+		PreparedStatement preparedStmt = getConn().prepareStatement(query);
+		preparedStmt.setInt(1, id);  
+		ResultSet rs =   preparedStmt.executeQuery();
+		
+		Venda ven = new Venda();
+		while(rs.next()) {
+			ven.setId(Integer.parseInt(rs.getString(1)));
+			ven.setData(rs.getDate(2));
+			ven.setQtd(rs.getInt(3));
+			ven.setDesconto(rs.getBigDecimal(4));
+			ven.setValorTotal(rs.getBigDecimal(5));	
+		}
+		
+		rs.close();
+		return ven;
+	}
+	
+	public void edit(Venda venda) throws Exception {
+		abrir();
+		
+		String query = "update venda set data=?, quantidade=?, desconto=?, valorTotal=? where id=?";
+	    PreparedStatement preparedStmt = getConn().prepareStatement(query);
+	    
+	    Date data = new Date();
+		data = venda.getData();
+		
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(data);
+		cal.add(Calendar.DATE, 1);
+		data = cal.getTime();
+		
+		java.sql.Date sqldate = new java.sql.Date(data.getTime());
+		
+	    preparedStmt.setDate(1, sqldate);
+	    preparedStmt.setInt(2, venda.getQtd());
+	    preparedStmt.setBigDecimal(3, venda.getDesconto());
+	    preparedStmt.setBigDecimal(4, venda.getValorTotal());
+	    preparedStmt.setInt(5, venda.getId()); 
+	    preparedStmt.execute();
+	    fechar();
 	}
 	
 }

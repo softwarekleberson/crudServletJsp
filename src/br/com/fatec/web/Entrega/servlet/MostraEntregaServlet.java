@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.fatec.web.BancoMemoria.BancoEntrega;
+import br.com.fatec.web.Banco.EntregaDao;
 
 
 @WebServlet("/mostraEntrega")
@@ -22,12 +22,22 @@ public class MostraEntregaServlet extends HttpServlet {
 		String paramId = request.getParameter("id");
 		Integer id = Integer.valueOf(paramId);
 		
-		BancoEntrega bancoEntrega = new BancoEntrega();
-		Entrega entrega = bancoEntrega.buscaPorId(id);
+		Entrega entrega = new Entrega();
+		EntregaDao entregaDao = new EntregaDao(entrega);
+		
+		try {
+			
+			entrega = entregaDao.findById(id);
+			
+			request.setAttribute("entrega", entrega);
+			RequestDispatcher rd = request.getRequestDispatcher("/formAlteraEntrega.jsp");
+			rd.forward(request, response);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 				
-		request.setAttribute("entrega", entrega);
-		RequestDispatcher rd = request.getRequestDispatcher("/formAlteraEntrega.jsp");
-		rd.forward(request, response);
+		
 	}
 
 }

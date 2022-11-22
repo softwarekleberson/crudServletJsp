@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.fatec.web.BancoMemoria.BancoVenda;
+import br.com.fatec.web.Banco.VendaDao;
 
 
 @WebServlet("/alteraVenda")
@@ -44,13 +44,23 @@ public class AlteraVendaServlet extends HttpServlet {
 			throw new ServletException(e);
 		}
 		
-		BancoVenda bancoVenda = new BancoVenda();
-		Venda venda = bancoVenda.buscaPorId(id);
+		Venda venda = new Venda(dataVenda, qtd, desconto, valor);
+		VendaDao dao = new VendaDao();
 		
-		venda.setQtd(qtd);
-		venda.setDesconto(desconto);
-		venda.setValorTotal(valor);
-		venda.setData(dataVenda);
+		try {
+			
+			if(paramId == null || paramId == "") {
+				dao.newVenda(venda);
+			}
+			else {
+				
+				venda.setId(id);
+				dao.edit(venda);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		response.sendRedirect("listaVenda");
 		

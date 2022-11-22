@@ -20,6 +20,14 @@ public class Venda extends EntidadeDominio{
 	
 	}
 	
+	public Venda(Date data, Integer qtd, BigDecimal desconto, BigDecimal valorTotal) {
+		
+		this.data = data;
+		this.qtd = qtd;
+		this.desconto = desconto;
+		this.valorTotal = valorTotal;
+	}
+	
 	public Venda(Date data, Cliente cliente, Produto produto, Integer qtd, BigDecimal desconto, BigDecimal valorTotal) {
 		
 		this.data = data;
@@ -30,8 +38,8 @@ public class Venda extends EntidadeDominio{
 		this.valorTotal = valorTotal;
 	}
 
-	public long getData() {
-		return data.getDate();
+	public Date getData() {
+		return data;
 	}
 	
 	public void setData(Date data) {

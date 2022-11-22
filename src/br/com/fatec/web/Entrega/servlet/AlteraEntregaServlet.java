@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.fatec.web.BancoMemoria.BancoEntrega;
+import br.com.fatec.web.Banco.EntregaDao;
 
 
 @WebServlet("/alteraEntrega")
@@ -22,6 +22,7 @@ public class AlteraEntregaServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String data = request.getParameter("data");
+		
 		String paramId = request.getParameter("id");
 		Integer id = Integer.valueOf(paramId);
 		
@@ -34,10 +35,26 @@ public class AlteraEntregaServlet extends HttpServlet {
 			throw new ServletException(e);
 		}
 		
-		BancoEntrega bancoEntrega = new BancoEntrega();
-		Entrega entrega = bancoEntrega.buscaPorId(id);
-		
+		Entrega entrega = new Entrega();
 		entrega.setData(dataEntrega);
+		
+		EntregaDao entregaDao = new EntregaDao();
+		
+		try {
+			
+			if(paramId == null || paramId == "") {
+				entregaDao.newEntrega(entrega);
+			}
+			else {
+				entrega.setId(id);
+				entregaDao.editar(entrega);
+			}
+			
+		} catch (Exception e) {
+
+			e.printStackTrace();
+		}
+		
 		
 		response.sendRedirect("listaEntrega");
 				

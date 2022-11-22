@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -41,9 +42,12 @@ public class EntregaDao extends BaseDao{
 		Statement s = getConn().createStatement();
 		String sql = "select id, data from entrega";
 		ResultSet rs = s.executeQuery(sql);
+		
+		
 		while(rs.next()) {
 			Entrega entrega = new Entrega();
 			entrega.setId(rs.getInt(1));
+			entrega.setData(rs.getDate(2));
 			lst.add(entrega);
 		}
 		
@@ -59,7 +63,9 @@ public class EntregaDao extends BaseDao{
 		String query = "insert into entrega(data)"
 						+ "values(?)";
 		
-		java.sql.Date sqldate = new java.sql.Date(entrega.getData());
+		Date data = new Date(); 
+		data = entrega.getData();
+		java.sql.Date sqldate = new java.sql.Date(data.getTime());
 		
 		PreparedStatement preparedStatement = getConn().prepareStatement(query);
 		preparedStatement.setDate(1, sqldate);
@@ -100,4 +106,47 @@ public class EntregaDao extends BaseDao{
 		
 	} 
 	
+	public Entrega findById(int id) throws Exception {
+		
+		super.abrir();
+		
+		String sql = "SELECT id, data FROM ENTREGA where id=?";
+		PreparedStatement preparedStmt = getConn().prepareStatement(sql);
+		preparedStmt.setInt(1, id);  
+		
+		ResultSet rs =   preparedStmt.executeQuery();
+		Entrega entrega = new Entrega();
+		
+		while(rs.next()) {
+			entrega.setId(Integer.parseInt(rs.getString(1)));
+			entrega.setData(rs.getDate(2));
+		}
+		
+		rs.close();
+		return entrega;
+		
+	}
+	
+	public void editar(Entrega entrega) throws Exception {
+		abrir();
+		
+		String query = "update entrega set data=? where id=?";
+	    PreparedStatement preparedStmt = getConn().prepareStatement(query);
+	    
+	    Date data = new Date();
+		data = entrega.getData();
+		
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(data);
+		cal.add(Calendar.DATE, 1);
+		data = cal.getTime();
+		
+		java.sql.Date sqldate = new java.sql.Date(data.getTime());
+		
+		preparedStmt.setDate(1, sqldate);
+		preparedStmt.setInt(2, entrega.getId());
+		preparedStmt.execute();
+		
+		fechar();
+	}
 }

@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.fatec.web.Banco.ProdutoDao;
-import br.com.fatec.web.BancoMemoria.BancoProduto;
 
 
 @WebServlet("/mostraProduto")

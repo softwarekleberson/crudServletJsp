@@ -8,10 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import br.com.fatec.web.Banco.CategoriaDao;
 import br.com.fatec.web.Banco.ClienteDao;
-import br.com.fatec.web.BancoMemoria.BancoCliente;
 
 
 @WebServlet("/mostraCliente")

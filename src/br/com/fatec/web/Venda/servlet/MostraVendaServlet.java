@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import br.com.fatec.web.BancoMemoria.BancoVenda;
+import br.com.fatec.web.Banco.VendaDao;
 
 
 @WebServlet("/mostraVenda")
@@ -21,12 +21,22 @@ public class MostraVendaServlet extends HttpServlet {
 		String paramId = request.getParameter("id");
 		Integer id = Integer.valueOf(paramId);
 		
-		BancoVenda bancoVenda = new BancoVenda();
-		Venda venda = bancoVenda.buscaPorId(id);
+		Venda venda = new Venda();
+		VendaDao dao = new VendaDao(venda);
+		
+		try {
+			
+			venda = dao.findByIdVenda(id);
+			System.out.println(id);
+			
+			request.setAttribute("venda", venda);
+			RequestDispatcher rd = request.getRequestDispatcher("/formAlteraVenda.jsp");
+			rd.forward(request, response);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 				
-		request.setAttribute("venda", venda);
-		RequestDispatcher rd = request.getRequestDispatcher("/formAlteraVenda.jsp");
-		rd.forward(request, response);
 	}
 
 }

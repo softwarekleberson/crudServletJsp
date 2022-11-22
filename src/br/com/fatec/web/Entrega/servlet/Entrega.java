@@ -28,8 +28,8 @@ public class Entrega extends EntidadeDominio{
 		this.venda = venda;
 	}
 	
-	public long getData() {
-		return data.getDate();
+	public Date getData() {
+		return data;
 	}
 	
 	public void setData(Date data) {
